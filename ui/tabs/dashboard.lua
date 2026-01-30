@@ -20,7 +20,7 @@ function Dashboard.load(Window)
     -- ============================================
     local BETA = Tab:Section({ Title = "Blatant BETA" })
 
-    UIElements.BETAStatus = BETA:Label({
+    UIElements.BETAStatus = BETA:Paragraph({
         Title = "Status",
         Desc = "Inactive"
     })
@@ -86,7 +86,7 @@ function Dashboard.load(Window)
     -- ============================================
     local V1 = Tab:Section({ Title = "Blatant V1" })
 
-    UIElements.V1Status = V1:Label({
+    UIElements.V1Status = V1:Paragraph({
         Title = "Status",
         Desc = "Inactive"
     })
@@ -147,7 +147,7 @@ function Dashboard.load(Window)
     -- ============================================
     local V2 = Tab:Section({ Title = "Blatant V2" })
 
-    UIElements.V2Status = V2:Label({
+    UIElements.V2Status = V2:Paragraph({
         Title = "Status",
         Desc = "Inactive"
     })
@@ -208,7 +208,7 @@ function Dashboard.load(Window)
     -- ============================================
     local V3 = Tab:Section({ Title = "Blatant V3" })
 
-    UIElements.V3Status = V3:Label({
+    UIElements.V3Status = V3:Paragraph({
         Title = "Status",
         Desc = "Inactive"
     })
