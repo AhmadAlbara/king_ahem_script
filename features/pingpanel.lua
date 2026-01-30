@@ -7,7 +7,7 @@ local UserInputService = game:GetService("UserInputService")
 local LocalPlayer = Players.LocalPlayer
 local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 
-local PerformanceHUD = {}
+local PingPanel = {}
 local HudState = {
     Visible = false,
     Dragging = false,
@@ -103,9 +103,9 @@ task.spawn(function()
     end
 end)
 
-function PerformanceHUD.toggle(state)
+function PingPanel.toggle(state)
     HudState.Visible = state
     Gui.Enabled = state
 end
 
-return PerformanceHUD
+return PingPanel
