@@ -12,8 +12,6 @@ Config.Defaults = {
     FishDelay = 0.68,
     CatchDelay = 0.34,
     SellDelay = 100,
-    TeleportLocation = "Sisyphus Statue",
-    FavoriteRarity = "Mythic"
 }
 Config.Current = {}
 for k, v in pairs(Config.Defaults) do
