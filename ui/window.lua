@@ -7,6 +7,23 @@ local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/rel
 
 local BASE_URL = "https://raw.githubusercontent.com/AhmadAlbara/king_ahem_script/main/ui/tabs/"
 
+
+
+local Window = WindUI:CreateWindow({
+    Title = "KING AHEM",
+    Icon = "crown",
+    Author = "Ahmad Albara",
+    Folder = "KING_AHEM",
+    Size = UDim2.fromOffset(650, 480),
+    Theme = "Dark",
+    Transparent = true,
+    Resizable = false
+})
+
+
+
+-- Load tabs
+
 local function loadTab(name)
     local ok, res = pcall(function()
         return loadstring(game:HttpGet(BASE_URL .. name .. ".lua"))()
@@ -20,19 +37,6 @@ local function loadTab(name)
 
     return res
 end
-
-local Window = WindUI:CreateWindow({
-    Title = "KING AHEM",
-    Icon = "crown",
-    Author = "Ahmad Albara",
-    Folder = "KING_AHEM",
-    Size = UDim2.fromOffset(650, 480),
-    Theme = "Dark",
-    Transparent = true,
-    Resizable = false
-})
-
--- Load tabs
 local DashboardTab = loadTab("dashboard")
 DashboardTab.load(Window)
 
