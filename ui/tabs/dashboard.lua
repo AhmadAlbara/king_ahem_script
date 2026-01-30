@@ -23,13 +23,13 @@ function Dashboard.load(Window)
             if activeBlatantMode and activeBlatantMode ~= "BETA" then
                 Fishing.stop()
             end
-            Config.set("BlatantMode", v)
-            Fishing.setBlatantMode(v)
-            Fishing.setVersion("BETA")
-            Config.set("AutoFish", v)
             if v then
-                Fishing.start(Config.Current.BlatantMode, "BETA")
+                activeBlatantMode = "BETA"
+                local rodInfo = Fishing.updateRodDelay()
+                print("Using: " .. rodInfo.rod)
+                Fishing.start(true, "BETA")
             else
+                activeBlatantMode = nil
                 Fishing.stop()
             end
         end
@@ -59,18 +59,17 @@ function Dashboard.load(Window)
 
     V1:Toggle({
         Title = "Enable Blatant V1",
-        Value = Config.Current.BlatantMode,
         Callback = function(v)
-             if activeBlatantMode and activeBlatantMode ~= "V1" then
+            if activeBlatantMode and activeBlatantMode ~= "V1" then
                 Fishing.stop()
             end
-            Config.set("BlatantMode", v)
-            Fishing.setBlatantMode(v)
-            Fishing.setVersion("V1")
-            Config.set("AutoFish", v)
             if v then
-                Fishing.start(Config.Current.BlatantMode, "V1")
+                activeBlatantMode = "V1"
+                local rodInfo = Fishing.updateRodDelay()
+                print("Using: " .. rodInfo.rod)
+                Fishing.start(true, "V1")
             else
+                activeBlatantMode = nil
                 Fishing.stop()
             end
         end
@@ -104,13 +103,13 @@ function Dashboard.load(Window)
             if activeBlatantMode and activeBlatantMode ~= "V2" then
                 Fishing.stop()
             end
-            Config.set("BlatantMode", v)
-            Fishing.setBlatantMode(v)
-            Fishing.setVersion("V2")
-            Config.set("AutoFish", v)
             if v then
-                Fishing.start(Config.Current.BlatantMode, "V2")
+                activeBlatantMode = "V2"
+                local rodInfo = Fishing.updateRodDelay()
+                print("Using: " .. rodInfo.rod)
+                Fishing.start(true, "V2")
             else
+                activeBlatantMode = nil
                 Fishing.stop()
             end
         end
@@ -143,13 +142,13 @@ function Dashboard.load(Window)
             if activeBlatantMode and activeBlatantMode ~= "V3" then
                 Fishing.stop()
             end
-            Config.set("BlatantMode", v)
-            Fishing.setBlatantMode(v)
-            Fishing.setVersion("V3")
-            Config.set("AutoFish", v)
             if v then
-                Fishing.start(Config.Current.BlatantMode, "V3")
+                activeBlatantMode = "V3"
+                local rodInfo = Fishing.updateRodDelay()
+                print("Using: " .. rodInfo.rod)
+                Fishing.start(true, "V3")
             else
+                activeBlatantMode = nil
                 Fishing.stop()
             end
         end
