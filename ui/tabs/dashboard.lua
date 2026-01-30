@@ -20,10 +20,6 @@ function Dashboard.load(Window)
     -- ============================================
     local BETA = Tab:Section({ Title = "Blatant BETA" })
 
-    UIElements.BETAStatus = BETA:Paragraph({
-        Title = "Status",
-        Desc = "Inactive"
-    })
 
     BETA:Toggle({
         Title = "Enable Blatant BETA",
@@ -38,12 +34,12 @@ function Dashboard.load(Window)
                 activeBlatantMode = "BETA"
                 Fishing.start(true, "BETA")
                 local rod, delay, bypass = Fishing.getRodInfo()
-                UIElements.BETAStatus:Update("Active - Rod: " .. rod .. " (" .. delay .. "s)")
+
                 print("✅ BETA Mode Started | Rod: " .. rod)
             else
                 activeBlatantMode = nil
                 Fishing.stop()
-                UIElements.BETAStatus:Update("Inactive")
+
                 print("❌ BETA Mode Stopped")
             end
         end
@@ -86,10 +82,7 @@ function Dashboard.load(Window)
     -- ============================================
     local V1 = Tab:Section({ Title = "Blatant V1" })
 
-    UIElements.V1Status = V1:Paragraph({
-        Title = "Status",
-        Desc = "Inactive"
-    })
+
 
     V1:Toggle({
         Title = "Enable Blatant V1",
@@ -103,12 +96,12 @@ function Dashboard.load(Window)
                 activeBlatantMode = "V1"
                 Fishing.start(true, "V1")
                 local rod, delay, bypass = Fishing.getRodInfo()
-                UIElements.V1Status:Update("Active - Rod: " .. rod .. " (" .. delay .. "s)")
+
                 print("✅ V1 Mode Started | Rod: " .. rod)
             else
                 activeBlatantMode = nil
                 Fishing.stop()
-                UIElements.V1Status:Update("Inactive")
+
                 print("❌ V1 Mode Stopped")
             end
         end
@@ -147,10 +140,7 @@ function Dashboard.load(Window)
     -- ============================================
     local V2 = Tab:Section({ Title = "Blatant V2" })
 
-    UIElements.V2Status = V2:Paragraph({
-        Title = "Status",
-        Desc = "Inactive"
-    })
+
 
     V2:Toggle({
         Title = "Enable Blatant V2",
@@ -164,12 +154,12 @@ function Dashboard.load(Window)
                 activeBlatantMode = "V2"
                 Fishing.start(true, "V2")
                 local rod, delay, bypass = Fishing.getRodInfo()
-                UIElements.V2Status:Update("Active - Rod: " .. rod .. " (" .. delay .. "s)")
+
                 print("✅ V2 Mode Started | Rod: " .. rod)
             else
                 activeBlatantMode = nil
                 Fishing.stop()
-                UIElements.V2Status:Update("Inactive")
+
                 print("❌ V2 Mode Stopped")
             end
         end
@@ -208,10 +198,6 @@ function Dashboard.load(Window)
     -- ============================================
     local V3 = Tab:Section({ Title = "Blatant V3" })
 
-    UIElements.V3Status = V3:Paragraph({
-        Title = "Status",
-        Desc = "Inactive"
-    })
 
     V3:Toggle({
         Title = "Enable Blatant V3",
@@ -225,12 +211,12 @@ function Dashboard.load(Window)
                 activeBlatantMode = "V3"
                 Fishing.start(true, "V3")
                 local rod, delay, bypass = Fishing.getRodInfo()
-                UIElements.V3Status:Update("Active - Rod: " .. rod .. " (" .. delay .. "s)")
+
                 print("✅ V3 Mode Started | Rod: " .. rod)
             else
                 activeBlatantMode = nil
                 Fishing.stop()
-                UIElements.V3Status:Update("Inactive")
+
                 print("❌ V3 Mode Stopped")
             end
         end
