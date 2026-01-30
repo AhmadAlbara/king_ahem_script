@@ -33,10 +33,9 @@ local Window = WindUI:CreateWindow({
 })
 
 -- Load tabs
-local DashboardTab = loadTab("dashboard.lua")
+local DashboardTab = loadTab("dashboard")
+DashboardTab.setup(Window)
 
-
-DashboardTab.load(Window)
 
 
 
