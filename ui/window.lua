@@ -40,7 +40,6 @@ if DashboardTab then DashboardTab.load(Window) end
 -- ============================================
 -- FLOATING BUTTON (DIPERBAIKI)
 -- ============================================
-print("[Floating] Starting to create floating button...")
 
 -- Tunggu sebentar agar CoreGui siap
 task.wait(0.1)
@@ -50,8 +49,6 @@ ScreenGui.Name = "AUTOFISH_FLOATING_BUTTON"
 ScreenGui.ResetOnSpawn = false
 ScreenGui.DisplayOrder = 999999
 ScreenGui.Parent = CoreGui
-
-print("[Floating] ScreenGui created, parent: " .. tostring(ScreenGui.Parent.Name))
 
 local FloatingButton = Instance.new("ImageButton")
 FloatingButton.Name = "FloatingToggleButton"
@@ -63,11 +60,6 @@ FloatingButton.Image = "rbxassetid://7229442422"
 FloatingButton.ImageColor3 = Color3.new(1, 1, 1)
 FloatingButton.Parent = ScreenGui
 FloatingButton.ZIndex = 100
-
-print("[Floating] FloatingButton created")
-print("[Floating] Button Position: " .. tostring(FloatingButton.Position))
-print("[Floating] Button Size: " .. tostring(FloatingButton.Size))
-print("[Floating] Button Visible: " .. tostring(FloatingButton.Visible))
 
 local Corner = Instance.new("UICorner")
 Corner.CornerRadius = UDim.new(1, 0)
@@ -88,7 +80,6 @@ ShadowCorner.Parent = Shadow
 
 -- Hover effects
 FloatingButton.MouseEnter:Connect(function()
-    print("[Floating] Mouse entered")
     TweenService:Create(FloatingButton, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
         { Size = UDim2.fromOffset(60, 60) }):Play()
     TweenService:Create(FloatingButton, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
@@ -96,7 +87,6 @@ FloatingButton.MouseEnter:Connect(function()
 end)
 
 FloatingButton.MouseLeave:Connect(function()
-    print("[Floating] Mouse left")
     TweenService:Create(FloatingButton, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
         { Size = UDim2.fromOffset(50, 50) }):Play()
     TweenService:Create(FloatingButton, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
@@ -108,7 +98,6 @@ local debounce = false
 FloatingButton.MouseButton1Click:Connect(function()
     if debounce then return end
     debounce = true
-    print("[Floating] Button clicked, toggling window")
     Window:Toggle()
     task.delay(0.3, function() debounce = false end)
 end)
