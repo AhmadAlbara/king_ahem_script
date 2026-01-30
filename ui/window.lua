@@ -3,8 +3,23 @@ local RunService = game:GetService("RunService")
 local TweenService = game:GetService("TweenService")
 local UIS = game:GetService("UserInputService")
 local CoreGui = game:GetService("CoreGui")
-
 local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
+
+local BASE_URL = "https://raw.githubusercontent.com/AhmadAlbara/king_ahem_script/main/ui/tabs/"
+
+local function loadTab(name)
+    local ok, res = pcall(function()
+        return loadstring(game:HttpGet(BASE_URL .. name .. ".lua"))()
+    end)
+
+    if not ok then
+        warn("[UI] ❌ Failed loading tab:", name)
+        warn(res)
+        return nil
+    end
+
+    return res
+end
 
 local Window = WindUI:CreateWindow({
     Title = "KING AHEM",
@@ -18,15 +33,11 @@ local Window = WindUI:CreateWindow({
 })
 
 -- Load tabs
-local DashboardTab = require(script.Parent:FindFirstChild("tabs"):FindFirstChild("Dashboard"))
-local SellTab = require(script.Parent:FindFirstChild("tabs"):FindFirstChild("AutoSell"))
-local TeleportTab = require(script.Parent:FindFirstChild("tabs"):FindFirstChild("Teleport"))
-local InfoTab = require(script.Parent:FindFirstChild("tabs"):FindFirstChild("Info"))
+local DashboardTab = loadTab("dashboard.lua")
+
 
 DashboardTab.load(Window)
-SellTab.load(Window)
-TeleportTab.load(Window)
-InfoTab.load(Window)
+
 
 
 

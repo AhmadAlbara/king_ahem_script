@@ -5,10 +5,10 @@ local Config, Network
 
 local function loadDeps()
     if not Config then
-        Config = require(script.Parent.Parent:FindFirstChild("core"):FindFirstChild("config"))
+        Config = loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadAlbara/king_ahem_script/main/core/config.lua"))()
     end
     if not Network then
-        Network = require(script.Parent.Parent:FindFirstChild("core"):FindFirstChild("network"))
+        Network = loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadAlbara/king_ahem_script/main/core/network.lua"))()
     end
 end
 
