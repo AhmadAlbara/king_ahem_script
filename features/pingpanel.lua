@@ -107,5 +107,11 @@ function PingPanel.toggle(state)
     HudState.Visible = state
     Gui.Enabled = state
 end
+function PingPanel.destroy()
+    if Gui and Gui.Parent then
+        Gui:Destroy()
+    end
+end
+
 
 return PingPanel

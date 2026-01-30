@@ -2,7 +2,8 @@ local RunService = game:GetService("RunService")
 local TweenService = game:GetService("TweenService")
 local UIS = game:GetService("UserInputService")
 local CoreGui = game:GetService("CoreGui")
-
+local PingPanel = loadstring(game:HttpGet(
+    "https://raw.githubusercontent.com/AhmadAlbara/king_ahem_script/main/features/pingpanel.lua"))()
 -- Load WindUI
 local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
 
@@ -187,9 +188,12 @@ FloatingButton.MouseLeave:Connect(function()
     Tooltip.Visible = false
 end)
 
+
+
 -- Cleanup
 Window:OnDestroy(function()
     print("[Window] Window destroyed, cleaning up...")
+    PingPanel.destroy()
     if ScreenGui and ScreenGui.Parent then
         ScreenGui:Destroy()
     end
