@@ -54,9 +54,9 @@ loadModule("system/autosell.lua")
 
 -- FEATURES
 loadModule("features/teleport.lua")
-loadModule("features/antiafk.lua")
-loadModule("features/performancehud.lua")
+loadModule("features/afk.lua")
+loadModule("features/pingpanel.lua")
 
 -- UI
-loadModule("ui/main.lua")
+loadModule("ui/window.lua")
 loadModule("ui/tabs/dashboard.lua")
