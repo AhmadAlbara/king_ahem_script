@@ -2,7 +2,7 @@ local Fishing = {}
 Fishing.isActive = false
 Fishing.isFishing = false
 Fishing.useBlatantMode = false
-Fishing.blatantVersion = "BETA" -- BETA, V1, V2, V3
+Fishing.blatantVersion = "BETA"
 
 local Config, Network
 
@@ -45,15 +45,15 @@ local function getValidRodName()
     local player = game:GetService("Players").LocalPlayer
     if not player or not player.PlayerGui then return nil end
     
-    local display = player.PlayerGui:FindFirstChild("Backpack")
-    if not display then return nil end
+    local backpack = player.PlayerGui:FindFirstChild("Backpack")
+    if not backpack then return nil end
     
-    display = display:FindFirstChild("Display")
+    local display = backpack:FindFirstChild("Display")
     if not display then return nil end
     
     for _, tile in ipairs(display:GetChildren()) do
         local success, itemNamePath = pcall(function()
-            return tile.Inner.Tags.ItemName
+            return tile:FindFirstChild("Inner").Tags:FindFirstChild("ItemName")
         end)
         if success and itemNamePath and itemNamePath:IsA("TextLabel") then
             local name = itemNamePath.Text
@@ -73,10 +73,10 @@ local function updateDelayBasedOnRod()
         detectedRod = rodName
         print("✅ Rod Detected: " .. rodName .. " | Delay: " .. customDelayV2 .. "s | Bypass: " .. BypassDelayV2 .. "s")
     else
-        customDelayV2 = Config.Current.FishDelay or 0.68
-        BypassDelayV2 = Config.Current.CatchDelay or 0.34
+        customDelayV2 = (Config and Config.Current and Config.Current.FishDelay) or 0.68
+        BypassDelayV2 = (Config and Config.Current and Config.Current.CatchDelay) or 0.34
         detectedRod = "Unknown"
-        print("⚠️ Rod not detected, using default delays")
+        print("⚠️ Rod not detected, using default delays: " .. customDelayV2 .. "s")
     end
 end
 
@@ -89,38 +89,37 @@ local function blatantLoopBETA()
             Fishing.isFishing = true
 
             pcall(function()
-                if not Network.Events.equip then return end
+                if not Network or not Network.Events or not Network.Events.equip then return end
                 
                 -- STEP 1: Equip Rod
                 Network.Events.equip:FireServer(1)
                 task.wait(0.05)
                 
-                -- STEP 2: Charge Rod (with dual spawn for stability)
+                -- STEP 2: Charge Rod
                 task.spawn(function()
                     if Network.Events.charge then
-                        Network.Events.charge:InvokeServer(1755848498.4834)
+                        Network.Events.charge:InvokeServer(workspace:GetServerTimeNow())
                         task.wait(0.01)
                         if Network.Events.minigame then
-                            Network.Events.minigame:InvokeServer(1.2854545116425, 1)
+                            Network.Events.minigame:InvokeServer(-0.7499996423721313, 1)
                         end
                     end
                 end)
                 task.wait(0.05)
 
-                -- Redundant charge for stability
                 task.spawn(function()
                     if Network.Events.charge then
-                        Network.Events.charge:InvokeServer(1755848498.4834)
+                        Network.Events.charge:InvokeServer(workspace:GetServerTimeNow())
                         task.wait(0.01)
                         if Network.Events.minigame then
-                            Network.Events.minigame:InvokeServer(1.2854545116425, 1)
+                            Network.Events.minigame:InvokeServer(-0.7499996423721313, 1)
                         end
                     end
                 end)
             end)
 
             -- STEP 3: Wait for fish to bite
-            task.wait(Config.Current.FishDelay or 0.68)
+            task.wait(customDelayV2)
 
             -- STEP 4: Reel In (BETA = 3 loops)
             for i = 1, 3 do
@@ -132,7 +131,7 @@ local function blatantLoopBETA()
                 task.wait(0.01)
             end
             
-            task.wait(Config.Current.CatchDelay * 0.5 or 0.17)
+            task.wait(BypassDelayV2 * 0.5)
             Fishing.isFishing = false
         else
             task.wait(0.01)
@@ -149,7 +148,7 @@ local function blatantLoopV1()
             Fishing.isFishing = true
 
             pcall(function()
-                if not Network.Events.equip then return end
+                if not Network or not Network.Events or not Network.Events.equip then return end
                 
                 -- STEP 1: Equip Rod
                 Network.Events.equip:FireServer(1)
@@ -158,10 +157,11 @@ local function blatantLoopV1()
                 -- STEP 2: Charge Rod
                 task.spawn(function()
                     if Network.Events.charge then
-                        Network.Events.charge:InvokeServer(1755848498.4834)
+                        Network.Events.charge:InvokeServer(workspace:GetServerTimeNow())
                         task.wait(0.02)
                         if Network.Events.minigame then
-                            Network.Events.minigame:InvokeServer(-0.7499996423721313 + math.random(-100, 100) / 1000000, 1)
+                            local x = -0.7499996423721313 + (math.random(-100, 100) / 1000000)
+                            Network.Events.minigame:InvokeServer(x, 1)
                         end
                     end
                 end)
@@ -169,16 +169,17 @@ local function blatantLoopV1()
 
                 task.spawn(function()
                     if Network.Events.charge then
-                        Network.Events.charge:InvokeServer(1755848498.4834)
+                        Network.Events.charge:InvokeServer(workspace:GetServerTimeNow())
                         task.wait(0.02)
                         if Network.Events.minigame then
-                            Network.Events.minigame:InvokeServer(-0.7499996423721313 + math.random(-100, 100) / 1000000, 1)
+                            local x = -0.7499996423721313 + (math.random(-100, 100) / 1000000)
+                            Network.Events.minigame:InvokeServer(x, 1)
                         end
                     end
                 end)
             end)
 
-            -- STEP 3: Wait for fish to bite (V1 = 0.9s)
+            -- STEP 3: Wait for fish to bite
             task.wait(0.9)
 
             -- STEP 4: Reel In (V1 = 5 loops)
@@ -208,16 +209,16 @@ local function blatantLoopV2()
             Fishing.isFishing = true
 
             pcall(function()
-                if not Network.Events.equip then return end
+                if not Network or not Network.Events or not Network.Events.equip then return end
                 
                 -- STEP 1: Equip Rod
                 Network.Events.equip:FireServer(1)
                 task.wait(0.08)
                 
-                -- STEP 2: Charge Rod dengan perfect cast variation
+                -- STEP 2: Charge Rod dengan Perfect Cast
                 task.spawn(function()
                     if Network.Events.charge then
-                        Network.Events.charge:InvokeServer(1755848498.4834)
+                        Network.Events.charge:InvokeServer(workspace:GetServerTimeNow())
                         task.wait(0.02)
                         if Network.Events.minigame then
                             local x = -0.7499996423721313 + (math.random(-500, 500) / 10000000)
@@ -230,7 +231,7 @@ local function blatantLoopV2()
 
                 task.spawn(function()
                     if Network.Events.charge then
-                        Network.Events.charge:InvokeServer(1755848498.4834)
+                        Network.Events.charge:InvokeServer(workspace:GetServerTimeNow())
                         task.wait(0.02)
                         if Network.Events.minigame then
                             local x = -0.7499996423721313 + (math.random(-500, 500) / 10000000)
@@ -241,7 +242,7 @@ local function blatantLoopV2()
                 end)
             end)
 
-            -- STEP 3: Wait for fish to bite (V2 = 0.9s)
+            -- STEP 3: Wait for fish to bite
             task.wait(0.9)
 
             -- STEP 4: Reel In (V2 = 7 loops)
@@ -271,16 +272,16 @@ local function blatantLoopV3()
             Fishing.isFishing = true
 
             pcall(function()
-                if not Network.Events.equip then return end
+                if not Network or not Network.Events or not Network.Events.equip then return end
                 
                 -- STEP 1: Equip Rod
                 Network.Events.equip:FireServer(1)
                 task.wait(0.10)
                 
-                -- STEP 2: Charge Rod dengan timing optimal
+                -- STEP 2: Charge Rod dengan Perfect Cast
                 task.spawn(function()
                     if Network.Events.charge then
-                        Network.Events.charge:InvokeServer(1755848498.4834)
+                        Network.Events.charge:InvokeServer(workspace:GetServerTimeNow())
                         task.wait(0.03)
                         if Network.Events.minigame then
                             local x = -0.7499996423721313 + (math.random(-500, 500) / 10000000)
@@ -293,7 +294,7 @@ local function blatantLoopV3()
 
                 task.spawn(function()
                     if Network.Events.charge then
-                        Network.Events.charge:InvokeServer(1755848498.4834)
+                        Network.Events.charge:InvokeServer(workspace:GetServerTimeNow())
                         task.wait(0.03)
                         if Network.Events.minigame then
                             local x = -0.7499996423721313 + (math.random(-500, 500) / 10000000)
@@ -304,7 +305,7 @@ local function blatantLoopV3()
                 end)
             end)
 
-            -- STEP 3: Wait for fish to bite (V3 = 0.9s)
+            -- STEP 3: Wait for fish to bite
             task.wait(0.9)
 
             -- STEP 4: Reel In (V3 = 12 loops - VERY AGGRESSIVE)
@@ -314,7 +315,7 @@ local function blatantLoopV3()
                         Network.Events.fishing:FireServer()
                     end
                 end)
-                task.wait(0.007)  -- Slightly faster interval
+                task.wait(0.007)
             end
             
             task.wait(0.1)
@@ -379,6 +380,10 @@ function Fishing.updateRodDelay()
         delay = customDelayV2,
         bypass = BypassDelayV2
     }
+end
+
+function Fishing.getRodInfo()
+    return detectedRod, customDelayV2, BypassDelayV2
 end
 
 return Fishing
