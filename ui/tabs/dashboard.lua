@@ -1,5 +1,5 @@
-local Config = require(script.Parent.Parent.Parent:FindFirstChild("core"):FindFirstChild("config"))
-local Fishing = require(script.Parent.Parent.Parent:FindFirstChild("system"):FindFirstChild("fishing"))
+local Config = loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadAlbara/king_ahem_script/main/core/config.lua"))()
+local Fishing = loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadAlbara/king_ahem_script/main/systems/fishing.lua"))()
 
 local Dashboard = {}
 
