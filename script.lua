@@ -22,8 +22,8 @@ loadModule("core/config.lua")
 loadModule("core/network.lua")
 
 -- SYSTEM
-loadModule("system/fishing.lua")
-loadModule("system/autosell.lua")
+loadModule("systems/fishing.lua")
+loadModule("systems/autosell.lua")
 
 -- FEATURES
 loadModule("features/teleport.lua")
